@@ -10,5 +10,7 @@ public class app {
         System.out.println(ce.stringSolde());
         System.out.println(ce2.stringSolde());
 
+        System.out.println(ce.TotalVerser());
+
     }
 }

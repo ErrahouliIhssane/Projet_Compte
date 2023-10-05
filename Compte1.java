@@ -1,5 +1,8 @@
 package Github;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -104,5 +107,38 @@ public  abstract  class Compte1 {
     public String stringSolde() {
         return ("solde=" + solde);
     }
+
+    public double TotalVerser(){
+        double total = 0.0;
+        for (Operation operation : operations){
+            if(operation instanceof Versement){
+                total+= operation.getMontant();
+            }
+        }
+        return total;
+    }
+    public double TotalRetrait(){
+        double total = 0.0;
+        for (Operation operation : operations){
+            if(operation instanceof Retrait){
+                total+= operation.getMontant();
+            }
+        }
+        return total;
+    }
+    public void operationFile(){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\user\\Desktop\\MOBIL APP\\201 BASES DEV ANDROID\\compte\\app\src\\main\\java\\Github\\File.txt",true))){
+            for (Operation operat : operations){
+                String OperationType = operat instanceof Retrait ? "retrait": "versement";
+                String message = "operation de" + OperationType + "" +operat.getDateoperation() + "" + operat.getMontant()+ "compte" +this.getClass().getSimpleName();
+                writer.write(message);
+                writer.newLine();
+            }
+            System.out.println("fichiers et created");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
