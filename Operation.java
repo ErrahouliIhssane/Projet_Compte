@@ -7,6 +7,7 @@ public class Operation {
     private Date  dateoperation;
     protected double montant;
 
+
     public Operation(int numero,Date dateoperation,double montant) {
         this.montant = montant;
         this.numero=numero;
@@ -35,6 +36,14 @@ public class Operation {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public String toString() {
+        return "Compte1{" +
+                "code=" + numero +
+                ", date=" + dateoperation  +
+                ", montant =" + montant +
+                '}';
     }
 
 }

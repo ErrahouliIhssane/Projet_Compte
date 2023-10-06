@@ -32,6 +32,11 @@ public class Comptecourant extends Compte1 {
             throw new SoldeInsuffisantException("Solde insuffisant pour le retrait.");
         }
     }
+    public  void Retrait(float montant) throws SoldeInsuffisantException{
+       if(montant > getSolde()+getDecouvert()) throw new SoldeInsuffisantException("er");
+       float mt=getSolde()-montant;
+       setSolde();
+    }
 
     public void Versement(Comptecourant compteCourant2, int i, int i1) {
     }

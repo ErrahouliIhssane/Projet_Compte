@@ -12,6 +12,9 @@ public  abstract  class Compte1 {
     private StatutDeCompte statut;
     private ArrayList<Operation> operations;
 
+    private int c =0;
+
+
     public Compte1(int code, float solde, StatutDeCompte statut) {
         this.code = code;
         this.solde = solde;
@@ -45,7 +48,7 @@ public  abstract  class Compte1 {
         return code;
     }
 
-    public double getSolde() {
+    public float getSolde() {
         return solde;
     }
     public StatutDeCompte getStatut() {
@@ -59,8 +62,8 @@ public  abstract  class Compte1 {
         public void Verser(float montant) {
         if (montant > 0) {
             solde += montant;
-             int n=0;
-            operations.add(new Retrait(n++,new Date(),montant));
+            ++c;
+            operations.add(new Versement(c,new Date(),montant));
         }
     }
 //
@@ -78,8 +81,8 @@ public  abstract  class Compte1 {
         if (montant > 0 && solde >= montant) {
 
             solde -= montant;
-            int n=0;
-            operations.add(new Retrait(n++,new Date(),montant));
+            ++c;
+            operations.add(new Retrait(c,new Date(),montant));
             return true;
         } else {
             throw new SoldeInsuffisantException("Solde insuffisant pour le retrait.");
@@ -89,11 +92,16 @@ public  abstract  class Compte1 {
 
     public void envoyer(Compte1 c ,float montant) throws SoldeInsuffisantException {
     if(montant<=getSolde())  {
-        solde = solde - montant;
+       this.Retrait(montant);
         c.Verser(montant);
         }else {
         throw new SoldeInsuffisantException("Solde n'est pas verser.");
     }
+    }
+    public void afficherOperations(){
+        for (Operation e:operations) {
+            System.out.println(e.toString());
+        }
     }
 
     @Override
@@ -127,7 +135,7 @@ public  abstract  class Compte1 {
         return total;
     }
     public void operationFile(){
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\user\\Desktop\\MOBIL APP\\201 BASES DEV ANDROID\\compte\\app\src\\main\\java\\Github\\File.txt",true))){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\user\\Desktop\\MOBIL APP\\201 BASES DEV ANDROID\\compte\\app\\src\\main\\java\\Github\\File.txt",true))){
             for (Operation operat : operations){
                 String OperationType = operat instanceof Retrait ? "retrait": "versement";
                 String message = "operation de" + OperationType + "" +operat.getDateoperation() + "" + operat.getMontant()+ "compte" +this.getClass().getSimpleName();
