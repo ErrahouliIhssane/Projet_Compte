@@ -77,13 +77,12 @@ public  abstract  class Compte1 {
 //        }
 //    }
 
-    public boolean Retrait(float montant) throws SoldeInsuffisantException {
+    public void Retrait(float montant) throws SoldeInsuffisantException {
         if (montant > 0 && solde >= montant) {
 
             solde -= montant;
             ++c;
             operations.add(new Retrait(c,new Date(),montant));
-            return true;
         } else {
             throw new SoldeInsuffisantException("Solde insuffisant pour le retrait.");
         }

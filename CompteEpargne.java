@@ -19,7 +19,7 @@ public class CompteEpargne extends Compte1 {
     }
 
     @Override
-    public double getSolde() {
+    public float getSolde() {
         return super.getSolde();
     }
 

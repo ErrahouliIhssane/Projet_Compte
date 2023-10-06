@@ -18,7 +18,7 @@ public class Comptecourant extends Compte1 {
         this.decouvert = decouvert;
     }
 
-    public double getSolde() {
+    public float getSolde() {
         return super.getSolde();
     }
 
@@ -33,9 +33,15 @@ public class Comptecourant extends Compte1 {
         }
     }
     public  void Retrait(float montant) throws SoldeInsuffisantException{
-       if(montant > getSolde()+getDecouvert()) throw new SoldeInsuffisantException("er");
+       if(montant < getSolde()+getDecouvert()) {
        float mt=getSolde()-montant;
-       setSolde();
+       if(mt<0) {
+           decouvert = decouvert + mt;
+       }
+       setSolde(mt);}
+       else {
+            throw new SoldeInsuffisantException("Solde insuffisant pour le retrait.");
+        }
     }
 
     public void Versement(Comptecourant compteCourant2, int i, int i1) {

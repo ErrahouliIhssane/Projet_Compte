@@ -19,6 +19,7 @@ public class app {
 
         c2.Retrait(500);
         System.out.println(c2.stringSolde());
+        System.out.println(c2.getDecouvert());
 
 
     }
